@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import moment from 'moment';
+
 import Timer from './Timer';
+import Datepicker from './Datepicker'
 import Control from './Control';
 
 export default class Countdown extends Component {
@@ -67,9 +69,13 @@ export default class Countdown extends Component {
             <h1 className="title">
               New year is coming up !!
             </h1>
+
             <section className="section">
             <Timer duration={duration} />
             </section>
+
+            <Datepicker />
+
             <Control paused={paused} onPausedToggle={this.handleTogglePaused}/>
           </div>
         </div>
