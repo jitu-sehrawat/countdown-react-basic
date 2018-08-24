@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
-import Countdown from './Countdown'
+import React from 'react';
+import Countdown from './countdown/index'
 
-class App extends Component {
-  render() {
-    return (
-     <div>
-       <Countdown/>
-     </div>
-    );
-  }
+const App = (props) => {
+  return(
+    <Countdown/>
+  );
 }
 
 export default App;
