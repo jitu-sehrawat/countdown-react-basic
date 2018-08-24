@@ -7,7 +7,8 @@ import Control from './Control';
 
 export default class Countdown extends Component {
   state = {
-    duration: this.getRemainingTime(),
+    currentDate: moment(),
+    nextDate: moment({year: moment().year() + 1}),
     paused: false
   };
 
@@ -20,12 +21,8 @@ export default class Countdown extends Component {
   }
 
   getRemainingTime() {
-    let now = moment(),
-      newYear = moment({
-        year: now.year() + 1,
-
-      }); 
-    let diff = newYear.diff(now);   // return in milliseconds
+    let { currentDate, nextDate} = this.state,
+        diff = nextDate.diff(currentDate);
 
     return moment.duration(diff);  
   }
@@ -53,28 +50,34 @@ export default class Countdown extends Component {
   resume() {
     this.interval = setInterval(() => {
       this.setState({
-        duration:this.getRemainingTime()
+        currentDate: moment()
       })
     }, 1000)
   }
 
+  handleDateReset = (nextDate) => {
+    this.setState({
+      nextDate: nextDate
+    })
+  }
 
   render() {    
-    const {duration, paused} = this.state;
+    const {paused, nextDate} = this.state,
+          duration = this.getRemainingTime();
 
     return(
       <section className="hero is-dark is-bold is-fullheight has-text-centered">
         <div className="hero-body">
           <div className="container">
             <h1 className="title">
-              New year is coming up !!
+              {nextDate.calendar()} is coming up !!
             </h1>
 
             <section className="section">
             <Timer duration={duration} />
             </section>
 
-            <Datepicker />
+            <Datepicker onDateReset={this.handleDateReset}/>
 
             <Control paused={paused} onPausedToggle={this.handleTogglePaused}/>
           </div>
