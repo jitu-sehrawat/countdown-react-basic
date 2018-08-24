@@ -4,12 +4,14 @@ import moment from 'moment';
 import Timer from './Timer';
 import Datepicker from './Datepicker'
 import Control from './Control';
+import HolidayModal from './HolidayModal';
 
 export default class Countdown extends Component {
   state = {
     currentDate: moment(),
     nextDate: moment({year: moment().year() + 1}),
-    paused: false
+    paused: false,
+    showHoliday : false
   };
 
   componentDidMount() {
@@ -61,8 +63,14 @@ export default class Countdown extends Component {
     })
   }
 
+  handleHolidayToggle = () => {
+    this.setState({
+      showHoliday: !this.state.showHoliday
+    })
+  }
+
   render() {    
-    const {paused, nextDate} = this.state,
+    const {paused, nextDate, showHoliday} = this.state,
           duration = this.getRemainingTime();
 
     return(
@@ -71,6 +79,9 @@ export default class Countdown extends Component {
           <div className="container">
             <h1 className="title">
               {nextDate.calendar()} is coming up !!
+              <button className="button is-small is-rounded is-light" onClick={this.handleHolidayToggle} style={{margin: '5px 0 0 10px'}}>
+                Holiday
+              </button>
             </h1>
 
             <section className="section">
@@ -80,6 +91,8 @@ export default class Countdown extends Component {
             <Datepicker onDateReset={this.handleDateReset}/>
 
             <Control paused={paused} onPausedToggle={this.handleTogglePaused}/>
+
+            <HolidayModal active={showHoliday} onToggle={this.handleHolidayToggle} />
           </div>
         </div>
       </section>
