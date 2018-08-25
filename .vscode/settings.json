@@ -2,4 +2,5 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.minimap.enabled": false,
+    "editor.wordWrap": "on",
 }

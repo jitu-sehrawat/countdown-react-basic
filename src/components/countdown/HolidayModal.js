@@ -1,6 +1,12 @@
 import React from 'react';
 
-const HolidayModal = ({active, onToggle}) => {
+const HolidayModal = ({active, onToggle, holidays}) => {
+  var reformattedArray = holidays.map(obj =>{ 
+    var rObj = {};
+    rObj = `<tr><td>${obj.date}</td></tr>`;
+    return rObj;
+ });
+ 
   return(
     <div className={'modal' + (active ? ' is-active' : '')}>
       <div className="modal-background"></div>
@@ -10,7 +16,21 @@ const HolidayModal = ({active, onToggle}) => {
           <button className="delete" aria-label="close" onClick={onToggle}></button>
         </header>
         <section className="modal-card-body">
-          sample data
+          <table className="table">
+            <thead>
+              <tr>
+                <th>
+                  Date
+                </th>
+                <th>
+                  Holiday
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {reformattedArray}
+            </tbody>
+          </table>
         </section>
         <footer className="modal-card-foot">
           <button className="button is-success">Save changes</button>
